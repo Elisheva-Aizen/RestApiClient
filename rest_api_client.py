@@ -15,39 +15,47 @@ class RestAPIClient:
   
     def get_data(self,serial): #api get request with serial
         try :
-        response = requests.get(f"{self.base_url}/api/responses?serial={serial}")
-        return response.json()
-        except Exception as e:
-        raise Exception(f"Error occurred while processing get request for serial {serial}:{str(e)}")
+            response = requests.get(f"{self.base_url}/api/responses?serial={serial}")
+            response.raise_for_status() #raise an http error
+            return response.json()
+        except requests.exceptions.HTTPError as errh:
+            print ("Http Error:",errh)
+        except requests.exceptions.ConnectionError as errc:
+            print ("Error Connecting:",errc)
+        except requests.exceptions.Timeout as errt:
+            print ("Timeout Error:",errt)
+        except requests.exceptions.RequestException as err:
+            print ("Something Else",err)
         
     def send_data(self,response_1,response_2): #api post request
         def get_json(): #get JSON data
             try:
-            data = {
-                "serial": 3,
-                "message": {
-                    "subset": {
-                        "general": {
-                            "information": {
-                                "date": date(2021,2,1),
-                                "version": 3.00
-                            },
-                            "quantities": {
-                                "first": max(response_1["message"]["subset"]["general"]["quantities"]["first"],
-                                            response_2["message"]["subset"]["general"]["quantities"]["first"]),
-                                "second": max(response_1["message"]["subset"]["general"]["quantities"]["second"],
-                                             response_2["message"]["subset"]["general"]["quantities"]["second"]),
-                                "third": max(response_1["message"]["subset"]["general"]["quantities"]["third"],
-                                            response_2["message"]["subset"]["general"]["quantities"]["third"])
+                data = {
+                    "serial": 3,
+                    "message": {
+                        "subset": {
+                            "general": {
+                                "information": {
+                                    "date": date(2021,2,1),
+                                    "version": 3.00
+                                },
+                                "quantities": {
+                                    "first": max(response_1["message"]["subset"]["general"]["quantities"]["first"],
+                                                response_2["message"]["subset"]["general"]["quantities"]["first"]),
+                                    "second": max(response_1["message"]["subset"]["general"]["quantities"]["second"],
+                                                 response_2["message"]["subset"]["general"]["quantities"]["second"]),
+                                    "third": max(response_1["message"]["subset"]["general"]["quantities"]["third"],
+                                                response_2["message"]["subset"]["general"]["quantities"]["third"])
+                                }
                             }
                         }
                     }
                 }
-            }
+            return data
             except Exception as e:
-            raise Exception(f"Error occurred while getting json for posting request: {str(e)}")
-        get_json()    
+                raise Exception(f"Error occurred while getting json for posting request: {str(e)}")
+        data=get_json()    
         Try:
         response = requests.post(f"{self.base_url}/api/process", json=data)
-        except Exception as e:
-        raise Exception(f"Error occurred while processing post request: {str(e)}")
+        except requests.exceptions.RequestException as err:
+            print ("error occured while posting request",err)
