@@ -52,11 +52,11 @@ class RestAPIClient:
                     }
                 }
                 return data
-            except Exception as err:
-                print ("Failed to get json data:",err)
+            except:
+                print ("Failed to get json data")
         data=get_json()    
         try:
             response = requests.post(f"{self.base_url}/api/process", json=data)
             return response
-        except requests.exceptions.RequestException as err: #general request exception
+        except requests.exceptions.RequestException as err:
             print ("Error occured while posting request" ,err)
