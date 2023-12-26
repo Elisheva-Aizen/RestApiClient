@@ -18,10 +18,13 @@ def main():
   ####Task_2####
   #send posting request with the responses
   assert response_1 is not None and response_2 is not None,"response_1 or response_2 is None"
-  response=rest_api_client.send_data(response_1,response_2)
-  #check if posting is done successfully
-  assert response.status_code=="200","Posting Request Failed"
-  print ("correct")
+  try:
+    response=rest_api_client.send_data(response_1,response_2)
+    #check if posting is done successfully
+    assert response.status_code=="200","Posting Request Failed"
+    print ("correct")
+  except Exception as err:
+        raise Exception(err)
   
   if __name__ == "__main__":
     main()
