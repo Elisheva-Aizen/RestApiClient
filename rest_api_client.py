@@ -28,6 +28,9 @@ class RestAPIClient:
             print ("Error occured while processing get request:",err)
         
     def send_data(self,response_1,response_2): #api post request
+        if response_1 is None or response_2 is None:
+            print ("response_1 or response_2 is None")
+            return
         def get_json(): #get JSON data
             try:
                 data = {
