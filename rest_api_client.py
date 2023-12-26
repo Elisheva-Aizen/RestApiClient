@@ -25,7 +25,7 @@ class RestAPIClient:
         except requests.exceptions.Timeout as errt:
             print ("Timeout Error:",errt)
         except requests.exceptions.RequestException as err:
-            print ("Something Else",err)
+            print ("Error occured while getting request:",err)
         
     def send_data(self,response_1,response_2): #api post request
         def get_json(): #get JSON data
@@ -52,10 +52,11 @@ class RestAPIClient:
                     }
                 }
                 return data
-            except Exception as e:
-                raise Exception(f"Error occurred while getting json for posting request: {str(e)}")
+            except Exception as err:
+                print ("Failed to get json data:",err)
         data=get_json()    
         try:
-        response = requests.post(f"{self.base_url}/api/process", json=data)
-        except requests.exceptions.RequestException as err:
-            print ("error occured while posting request",err)
+            response = requests.post(f"{self.base_url}/api/process", json=data)
+            return response
+        except requests.exceptions.RequestException as err: #general request exception
+            print ("Error occured while posting request" ,err)
