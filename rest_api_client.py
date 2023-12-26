@@ -61,6 +61,7 @@ class RestAPIClient:
             return response
         except requests.exceptions.HTTPError as errh:
             print ("Http Error:",errh)
-        except requests.exceptions.RequestException as err:
-            print ("Error occured while processing post request" ,err)
-        except:
+        except requests.exceptions.RequestException as errr:
+            print ("Error occured while processing post request" ,errr)
+        except Exception as err:
+               raise Exception(err)
