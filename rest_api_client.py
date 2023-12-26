@@ -64,4 +64,4 @@ class RestAPIClient:
         except requests.exceptions.RequestException as errr:
             raise Exception ("Error occured while processing post request" ,errr)
         except Exception as err:
-               raise Exception(err)
+               raise Exception(str(err))
