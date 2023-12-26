@@ -36,7 +36,7 @@ class RestAPIClient:
                         "subset": {
                             "general": {
                                 "information": {
-                                    "date": date(2021,2,1),
+                                    "date": "1-2-2021",
                                     "version": 3.00
                                 },
                                 "quantities": {
