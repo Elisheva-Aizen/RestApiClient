@@ -1,4 +1,5 @@
 from rest_api_client import RestAPIClient
+import requests
 
 def main():
   url="https://resttest10.herokuapp.com"
@@ -18,7 +19,7 @@ def main():
   #send posting request with the responses
   response=rest_api_client.send_data(response_1,response_2)
   #check if posting is done successfully
-  assert(response.status_code=="200","Posting Request Failed")
+  assert(response.status_code==requests.codes.ok:,"Posting Request Failed")
   print ("correct")
   
   if __name__ == "__main__":
