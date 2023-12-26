@@ -23,7 +23,7 @@ def main():
     assert response.status_code=="200","Posting Request Failed"
     print ("correct")
   except Exception as err:
-        raise Exception(err)
+    raise Exception(err)
   
   if __name__ == "__main__":
     main()
