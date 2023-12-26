@@ -7,9 +7,10 @@ def main():
   #create an instace for RestAPIClient
   rest_api_client=RestAPIClient(url)
   
-  ####Task_1####
-  #get response for serial 1
+
   try:
+    ####Task_1####
+    #get response for serial 1
     response_1=rest_api_client.get_data(1)
     print(response_1)
     #get response for serial 2
