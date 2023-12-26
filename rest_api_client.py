@@ -19,13 +19,13 @@ class RestAPIClient:
             response.raise_for_status() #raise an http error
             return response.json()
         except requests.exceptions.HTTPError as errh:
-            print ("Http Error:",errh)
+            raise Exception ("Http Error:",errh)
         except requests.exceptions.ConnectionError as errc:
-            print ("Error Connecting:",errc)
+            raise Exception ("Error Connecting:",errc)
         except requests.exceptions.Timeout as errt:
-            print ("Timeout Error:",errt)
+            raise Exception ("Timeout Error:",errt)
         except requests.exceptions.RequestException as err:
-            print ("Error occured while processing get request:",err)
+            raise Exception ("Error occured while processing get request:",err)
         
     def send_data(self,response_1,response_2): #api post request
         def get_json(): #get JSON data
@@ -60,8 +60,8 @@ class RestAPIClient:
             response.raise_for_status()
             return response
         except requests.exceptions.HTTPError as errh:
-            print ("Http Error:",errh)
+            raise Exception ("Http Error:",errh)
         except requests.exceptions.RequestException as errr:
-            print ("Error occured while processing post request" ,errr)
+            raise Exception ("Error occured while processing post request" ,errr)
         except Exception as err:
                raise Exception(err)
