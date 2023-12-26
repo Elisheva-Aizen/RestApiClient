@@ -18,7 +18,7 @@ def main():
   #send posting request with the responses
   response=rest_api_client.send_data(response_1,response_2)
   #check if posting is done successfully
-  assert(response.ok)
+  assert(response.status_code=="200","Failed on posting data")
   print ("correct")
   
   if __name__ == "__main__":
