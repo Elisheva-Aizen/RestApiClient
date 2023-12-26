@@ -28,9 +28,6 @@ class RestAPIClient:
             print ("Error occured while processing get request:",err)
         
     def send_data(self,response_1,response_2): #api post request
-        if response_1 is None or response_2 is None:
-            print ("response_1 or response_2 is None")
-            return
         def get_json(): #get JSON data
             try:
                 data = {
@@ -56,10 +53,13 @@ class RestAPIClient:
                 }
                 return data
             except Exception as err:
-               raise print ("Failed to get json data")
+               raise Exception("Failed to get json data")
         data=get_json()    
         try:
             response = requests.post(f"{self.base_url}/api/process", json=data)
+            response.raise_for_status()
             return response
+        except requests.exceptions.HTTPError as errh:
+            print ("Http Error:",errh)
         except requests.exceptions.RequestException as err:
             print ("Error occured while processing post request" ,err)
