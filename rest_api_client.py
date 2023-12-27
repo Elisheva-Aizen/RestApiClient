@@ -17,7 +17,7 @@ class RestAPIClient:
         try :
             response = requests.get(f"{self.base_url}/api/responses?serial={serial}")
             response.raise_for_status() #raise an http error
-            return response.json()
+            return json.loads(response.text)
         except requests.exceptions.HTTPError as errh:
             raise Exception ("Get Request Http Error:",errh)
         except requests.exceptions.RequestException as err:
