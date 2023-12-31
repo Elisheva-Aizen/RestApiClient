@@ -19,9 +19,9 @@ class RestAPIClient:
             response.raise_for_status() #raise an http error
             return response.json()
         except requests.exceptions.HTTPError as errh:
-            raise Exception ("Get request http error:",errh)
-        except requests.exceptions.RequestException as err:
-            raise Exception ("Error occured while processing get request:",err)
+            raise Exception ("Get request http error:",str(errh))
+        except requests.exceptions.RequestException as errr:
+            raise Exception ("Error occured while processing get request:",str(errr))
         except Exception as err:
             raise Exception(str(err))
         
@@ -51,15 +51,15 @@ class RestAPIClient:
                 }
                 return data
             except Exception as err:
-               raise Exception("Failed to get json data")
+               raise Exception("Failed to get json data:",str(err))
         try:
             data=get_json()    
             response = requests.post(f"{self.base_url}/api/process", json=data,timeout=30)
             response.raise_for_status()
             return response
         except requests.exceptions.HTTPError as errh:
-            raise Exception ("Post request http error:",errh)
+            raise Exception ("Post request http error:",str(errh))
         except requests.exceptions.RequestException as errr:
-            raise Exception ("Error occured while processing post request" ,errr)
+            raise Exception ("Error occured while processing post request:" ,str(errr))
         except Exception as err:
                raise Exception(str(err))
