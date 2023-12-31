@@ -25,17 +25,17 @@ class RestAPIClient:
         except Exception as err:
             raise Exception(str(err))
         
-    def send_data(self,response_1,response_2): #api post request
+    def send_data(self,response_1,response_2,serial,date,version): #api post request
         def get_json(): #get JSON data
             try:
                 data = {
-                    "serial": 3,
+                    "serial": serial,
                     "message": {
                         "subset": {
                             "general": {
                                 "information": {
-                                    "date": "1-2-2021",
-                                    "version": 3.00
+                                    "date": date,
+                                    "version": version
                                 },
                                 "quantities": {
                                     "first": max(response_1["message"]["subset"]["general"]["quantities"]["first"],
