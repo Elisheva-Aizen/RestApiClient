@@ -15,7 +15,7 @@ class RestAPIClient:
   
     def get_data(self,serial): #api get request with serial
         try :
-            response = requests.get(f"{self.base_url}/api/responses?serial={serial}")
+            response = requests.get(f"{self.base_url}/api/responses?serial={serial}",timeout=30)
             response.raise_for_status() #raise an http error
             return response.json()
         except requests.exceptions.HTTPError as errh:
@@ -54,7 +54,7 @@ class RestAPIClient:
                raise Exception("Failed to get json data")
         try:
             data=get_json()    
-            response = requests.post(f"{self.base_url}/api/process", json=data)
+            response = requests.post(f"{self.base_url}/api/process", json=data,timeout=30)
             response.raise_for_status()
             return response
         except requests.exceptions.HTTPError as errh:
