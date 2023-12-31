@@ -19,7 +19,7 @@ def main():
   
     ####Task_2####
     #send posting request with the responses
-    response=rest_api_client.send_data(response_1,response_2)
+    response=rest_api_client.send_data(response_1,response_2,3,"1-2-2021",3.00)
     #check if posting is done successfully
     assert response.status_code=="200","Posting Request Failed"
     print ("correct")
