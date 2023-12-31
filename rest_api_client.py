@@ -19,7 +19,7 @@ class RestAPIClient:
             response.raise_for_status() #raise an http error
             return response.json()
         except requests.exceptions.HTTPError as errh:
-            raise Exception ("Get Request Http Error:",errh)
+            raise Exception ("Get request http error:",errh)
         except requests.exceptions.RequestException as err:
             raise Exception ("Error occured while processing get request:",err)
         except Exception as err:
@@ -58,7 +58,7 @@ class RestAPIClient:
             response.raise_for_status()
             return response
         except requests.exceptions.HTTPError as errh:
-            raise Exception ("Post Request Http Error:",errh)
+            raise Exception ("Post request http error:",errh)
         except requests.exceptions.RequestException as errr:
             raise Exception ("Error occured while processing post request" ,errr)
         except Exception as err:
