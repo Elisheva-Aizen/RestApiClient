@@ -22,8 +22,6 @@ class RestAPIClient:
           print(f"Get request http error:",str(errh))
         except requests.exceptions.RequestException as errr: #handle any other request exception
             print (f"Error occured while processing get request:",str(errr))
-        except Exception as err: #hadle an exception on response.json() statment
-            print(str(err))
         
     def send_data(self,response_1,response_2,serial,date,version): #api post request
         def get_json(): #get JSON data
@@ -61,5 +59,3 @@ class RestAPIClient:
             print(f"Post request http error:",str(errh))
         except requests.exceptions.RequestException as errr:
             print(f"Error occured while processing post request:" ,str(errr))
-        except Exception as err:
-               print(str(err))
