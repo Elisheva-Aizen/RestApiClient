@@ -25,31 +25,28 @@ class RestAPIClient:
         
     def send_data(self,response_1,response_2,serial,date,version): #api post request
         def get_json(): #get JSON data
-            try:
-                data = {
-                    "serial": serial,
-                    "message": {
-                        "subset": {
-                            "general": {
-                                "information": {
-                                    "date": date,
-                                    "version": version
-                                },
-                                "quantities": {
-                                    "first": max(response_1["message"]["subset"]["general"]["quantities"]["first"],
-                                                response_2["message"]["subset"]["general"]["quantities"]["first"]),
-                                    "second": max(response_1["message"]["subset"]["general"]["quantities"]["second"],
-                                                 response_2["message"]["subset"]["general"]["quantities"]["second"]),
-                                    "third": max(response_1["message"]["subset"]["general"]["quantities"]["third"],
-                                                response_2["message"]["subset"]["general"]["quantities"]["third"])
-                                }
+            data = {
+                "serial": serial,
+                "message": {
+                    "subset": {
+                        "general": {
+                            "information": {
+                                "date": date,
+                                "version": version
+                            },
+                            "quantities": {
+                                "first": max(response_1["message"]["subset"]["general"]["quantities"]["first"],
+                                            response_2["message"]["subset"]["general"]["quantities"]["first"]),
+                                "second": max(response_1["message"]["subset"]["general"]["quantities"]["second"],
+                                            response_2["message"]["subset"]["general"]["quantities"]["second"]),
+                                "third": max(response_1["message"]["subset"]["general"]["quantities"]["third"],
+                                            response_2["message"]["subset"]["general"]["quantities"]["third"])
                             }
                         }
                     }
                 }
-                return data
-            except Exception as err:
-               print(f"Failed to get json data:",str(err))
+            }
+            return data
         try:
             data=get_json()    
             response = requests.post(f"{self.base_url}/api/process", json=data,timeout=30)
