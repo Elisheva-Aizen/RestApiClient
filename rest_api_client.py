@@ -59,3 +59,5 @@ class RestAPIClient:
             print(f"Post request http error:",str(errh))
         except requests.exceptions.RequestException as errr:
             print(f"Error occured while processing post request:" ,str(errr))
+        except Exception as err:
+               print(str(err))
