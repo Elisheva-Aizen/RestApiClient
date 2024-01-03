@@ -23,6 +23,10 @@ def main():
     #check if posting is done successfully
     assert response.status_code=="200","Posting Request Failed"
     print ("correct")
+  #hadle assertion error
+  except AssertionError as msg:
+    print(msg)
+  #handle any other exception during the process
   except Exception as err:
     print(str(err))
   
